@@ -7,7 +7,7 @@ import random
 fake = Faker()
 
 # Токен вашего бота (получите его у @BotFather)
-TOKEN = '7922612476:AAHDXqtZZgwvRtmmFich5FgMB-BPOznI5DI'
+TOKEN = 'Сюда вставляем токен'
 
 # Идентификатор стикера
 STICKER_ID = 'CAACAgUAAxkBAAN1Z4p1GRXM4XeSzvPvqryo9G4YruMAAnADAALpCsgD1gZUND89raQ2BA'
@@ -70,26 +70,32 @@ def send_welcome(message):
 def handle_callback(call):
     if call.data == 'mastercard':
         card_number = fake.credit_card_number(card_type="mastercard")
+        card_type = "MasterCard"
     elif call.data == 'visa':
         card_number = fake.credit_card_number(card_type="visa")
+        card_type = "Visa"
     elif call.data == 'mir':
         card_number = generate_mir_card()
+        card_type = "Мир"
     elif call.data == 'jcb':
         card_number = generate_jcb_card()
+        card_type = "JCB"
     elif call.data == 'maestro':
         card_number = generate_maestro_card()
+        card_type = "Maestro"
     elif call.data == 'unionpay':
         card_number = generate_unionpay_card()
+        card_type = "UnionPay"
         
     bot.send_message(
         call.message.chat.id,
-        f"Вот ваш номер карты: {card_number}"
+        f"Вот номер карты ({card_type}): {card_number}"
     )
     
     keyboard = create_keyboard()
     bot.send_message(
         call.message.chat.id,
-        "Выберите ещё одну карту:",
+        "Можно выбрать еще😌",
         reply_markup=keyboard
     )
 
